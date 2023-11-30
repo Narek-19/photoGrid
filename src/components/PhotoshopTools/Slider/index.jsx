@@ -1,9 +1,16 @@
 import styles from "./style.module.css";
 
-export const Slider = () => {
+export const Slider = ({ min, max, value, handleChange }) => {
   return (
     <div>
-      <input type="range" className={styles.slider} />
+      <input
+        min={min}
+        max={max}
+        value={value}
+        onChange={handleChange}
+        type="range"
+        className={styles.slider}
+      />
     </div>
   );
 };

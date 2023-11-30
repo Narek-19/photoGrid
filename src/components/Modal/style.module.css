@@ -63,3 +63,6 @@
     object-fit: contain;
     height: 600px;
 }
+.active{
+    color:green !important;
+}

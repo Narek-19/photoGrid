@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { data } from "../../galleryData";
 import styles from "./style.module.css";
 import { Modal } from "../Modal";
-export const Gallery =()=>{
+export const Gallery = () => {
+  const imgRef = useRef();
   const [modal, setModal] = useState(false);
   const [tempImg, setTempImg] = useState("");
+  const [imageStyle, setImageStyle] = useState({});
 
   const getImg = (imgSrc) => {
     setTempImg(imgSrc);
     setModal(true);
+  };
+
+  const getImageStyle = (options) => {
+    const filters = options.map((option) => {
+      return `${option.property}(${option.value}${option.unit})`;
+    });
+
+    setImageStyle({ filter: filters.join(" ") });
   };
 
   return (
@@ -17,8 +27,8 @@ export const Gallery =()=>{
         {data.map((item, index) => {
           return (
             <div
-              className={styles.pics}
               key={index}
+              className={styles.pics}
               onClick={() => getImg(item.imgSrc)}
             >
               <img
@@ -30,9 +40,9 @@ export const Gallery =()=>{
           );
         })}
       </div>
-      <Modal open={modal}>
-        <img src={tempImg} alt="modal_img" />
+      <Modal open={modal} getImageStyle={getImageStyle}>
+        <img style={imageStyle} src={tempImg} alt="modal_img" />
       </Modal>
     </>
   );
-}
+};
