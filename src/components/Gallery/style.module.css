@@ -1,0 +1,31 @@
+.gallery {
+    column-count: 3;
+    column-width: 33%;
+    padding: 0 12px;
+}
+
+.gallery .pics:hover {
+    filter: opacity(.8)
+}
+
+.gallery .pics {
+    transition: all 350ms ease;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+
+@media (max-width:991px) {
+    .gallery {
+        column-count: 3;
+        column-width: 33%;
+        padding: 0 12px;
+    }
+}
+
+@media (max-width:480px) {
+    .gallery {
+        column-count: 1;
+        column-width: 100%;
+        padding: 0 12px;
+    }
+}

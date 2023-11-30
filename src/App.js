@@ -1,10 +1,14 @@
-import {Gallery} from "./components/Gallery"
-import './App.css';
+import { Gallery } from "./components/Gallery";
+import { GalleryLayout } from "./components/GalleryLayout";
+
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <Gallery/>
+      {/* <GalleryLayout> */}
+        <Gallery />
+      {/* </GalleryLayout> */}
     </div>
   );
 }
