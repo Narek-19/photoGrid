@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Slider } from "../PhotoshopTools/Slider";
-import CloseIcon from "@mui/icons-material/Close";
+// import CloseIcon from "@mui/icons-material/Close";
 import { filterOptions } from "../../filterOptions";
 import styles from "./style.module.css";
 
@@ -59,7 +59,7 @@ export const Modal = ({
       <>
         <div className={styles.modal}>
           <div onClick={closeModal} className={styles.closeIcon}>
-            <CloseIcon />
+            X
           </div>
           <div>{children}</div>
           <div className={styles.toolsContainer}>
