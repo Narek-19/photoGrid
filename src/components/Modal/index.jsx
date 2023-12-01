@@ -34,12 +34,13 @@ export const Modal = ({
     const ctx = canvas.getContext("2d");
     canvas.width = currentImgRef.current.naturalWidth;
     canvas.height = currentImgRef.current.naturalHeight;
-    console.log(canvas.width,canvas.height,"sizes");
 
     ctx.filter = currentImgRef.current?.style.filter;
 
     ctx.drawImage(currentImgRef.current, 0, 0);
-
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("Created By Narek Chakhoyan", 50, 50);
     // Create a temporary link and trigger a click to download the modified image
     const downloadLink = document.createElement("a");
     downloadLink.href = canvas.toDataURL("image/png");
