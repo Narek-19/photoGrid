@@ -1,6 +1,21 @@
-.layout{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
+.layout {
+    margin-top: 5px;
+    padding: 30px;
+    height: 90vh;
+    background-color: rgb(7, 7, 7);
+    overflow-y: scroll;
+}
+
+.layout::-webkit-scrollbar {
+    width: 16px;
+}
+
+.layout::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+
+.layout::-webkit-scrollbar-thumb {
+    background-color: #72706c;
+    border-radius: 100px;
 }

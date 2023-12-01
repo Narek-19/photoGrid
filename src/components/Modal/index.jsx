@@ -4,7 +4,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { filterOptions } from "../../filterOptions";
 import styles from "./style.module.css";
 
-export const Modal = ({ children, getImageStyle }) => {
+export const Modal = ({
+  children,
+  getImageStyle,
+  open,
+  closeModal,
+  currentImgRef,
+}) => {
   const [selectedOptionIndex, setSelectedOptionIndex] = useState(0);
   const [options, setOptions] = useState(filterOptions);
 
@@ -23,42 +29,70 @@ export const Modal = ({ children, getImageStyle }) => {
     });
   };
 
+  const handleDownload = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = currentImgRef.current.naturalWidth;
+    canvas.height = currentImgRef.current.naturalHeight;
+    console.log(canvas.width,canvas.height,"sizes");
+
+    ctx.filter = currentImgRef.current?.style.filter;
+
+    ctx.drawImage(currentImgRef.current, 0, 0);
+
+    // Create a temporary link and trigger a click to download the modified image
+    const downloadLink = document.createElement("a");
+    downloadLink.href = canvas.toDataURL("image/png");
+    downloadLink.download = "modified_image.png";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
+
   useEffect(() => {
     getImageStyle(options);
   }, [options]);
 
-  return (
-    <div className={styles.modal}>
-      <div className={styles.closeIcon}>
-        <CloseIcon />
-      </div>
-      <div>{children}</div>
-      <div className={styles.toolsContainer}>
-        <div className={styles.tools}>
-          <div>
-            {options.map((option, index) => {
-              return (
-                <div
-                  onClick={() => changeFilter(index)}
-                  className={`${
-                    index === selectedOptionIndex ? styles.active : ""
-                  }`}
-                >
-                  {option.nam}
-                </div>
-              );
-            })}
+  if (open) {
+    return (
+      <>
+        <div className={styles.modal}>
+          <div onClick={closeModal} className={styles.closeIcon}>
+            <CloseIcon />
+          </div>
+          <div>{children}</div>
+          <div className={styles.toolsContainer}>
+            <div className={styles.tools}>
+              <div>
+                {options.map((option, index) => {
+                  return (
+                    <div
+                      onClick={() => changeFilter(index)}
+                      className={`${
+                        index === selectedOptionIndex ? styles.active : ""
+                      }`}
+                    >
+                      {option.nam}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+            <div className={styles.gallerySlider}>
+              <Slider
+                min={selectedOption.range.min}
+                max={selectedOption.range.max}
+                value={selectedOption.value}
+                handleChange={handleSliderChange}
+              />
+              <div onClick={handleDownload} className={styles.downloadBtn}>
+                Download
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <Slider
-            min={selectedOption.range.min}
-            max={selectedOption.range.max}
-            value={selectedOption.value}
-            handleChange={handleSliderChange}
-          />
-        </div>
-      </div>
-    </div>
-  );
+        <div className={styles.background}></div>
+      </>
+    );
+  }
 };

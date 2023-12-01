@@ -13,6 +13,10 @@ export const Gallery = () => {
     setModal(true);
   };
 
+  const closeModal = () => {
+    setModal(false);
+  };
+
   const getImageStyle = (options) => {
     const filters = options.map((option) => {
       return `${option.property}(${option.value}${option.unit})`;
@@ -40,8 +44,9 @@ export const Gallery = () => {
           );
         })}
       </div>
-      <Modal open={modal} getImageStyle={getImageStyle}>
-        <img style={imageStyle} src={tempImg} alt="modal_img" />
+
+      <Modal open={modal} getImageStyle={getImageStyle} closeModal={closeModal} currentImgRef = {imgRef}>
+        <img ref = {imgRef} style={imageStyle} src={tempImg} alt="modal_img" />
       </Modal>
     </>
   );
